@@ -1,5 +1,9 @@
 const User = require('../models').User
 const formatUser = require('../utils/formatUser')
+const bcrypt = require('bcrypt')
+require('dotenv').config()
+
+const salt = parseInt(process.env.SALT)
 
 module.exports = {
 
@@ -31,6 +35,48 @@ module.exports = {
         else {
             res.status(500).json({ err: "user introubale" })
         }
+    },
+    updateUserAvatar: async (req, res, next) => {
+
+        let id = req.body.userId
+        User.update(
+            {avatar: req.file.filename},
+            {where: {id: id}}
+        )
+        .then(user=>{
+            res.status(200).json({err: "user updated"})
+        })
+        .catch(err=>{
+            res.status(500).json({ err: "user introubale" })
+
+        })
+
+    },
+    updateUserPassword: async (req, res, next) => {
+
+        let id = req.body.id
+        let password = req.body.password
+        console.log("idddddddddddddd ", id)
+        bcrypt.hash(password, salt , function(err, hash){
+            if(err){
+                console.log(err)
+                res.status(500).json({err})
+            }else{   
+                User.update(
+                    {password: hash},
+                    {where: {id: id}}
+                )
+                .then(user=>{
+                    res.status(200).json({err: "user updated"})
+                })
+                .catch(err=>{
+                    res.status(500).json({ err: "user introubale" })
+        
+                })
+            }
+        })
+       
+
     }
 
 
