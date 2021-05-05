@@ -22,6 +22,7 @@ module.exports = (req, res) => {
                 let user = req.body.user
                 user.password = ""
                 user.avatar =  req.protocol + "://" + req.get("host") +'/uploads/images/'+ user.avatar
+                console.log(token)
                 res.status(200);
                 res.json({
                     token,

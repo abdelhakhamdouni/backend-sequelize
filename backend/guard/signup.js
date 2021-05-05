@@ -6,23 +6,17 @@ const User = require("../models").User
  * @param {Callback} next 
  */
 
+module.exports = async (req, res, next) =>{
 
-module.exports = (req, res, next) =>{
+    req.file ? req.body.avatar = req.file.filename : req.body.avatar = "pas de avatar"
+    console.log("create posts=============>",req.body)
 
-    req.body.avatar = req.file.filename || "pas de avatar"
+    User.create(req.body).then(()=>{
+        res.status(201).json({succes:" user added"})
 
-    User.create(req.body).then(user=>{
-        req.body={
-            id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            isAdmin: user.isAdmin,
-            createdAt: user.createdAt,
-            avatar: req.protocol + "://" + req.get("host") +'/uploads/images/'+ user.avatar
-        }
-        next()
     })
-    .catch(err=> {
-        res.status(500).json({err: err.errors[0].message})
+    .catch(err => {
+        res.status(500).json({error_handler:"SIGNUP",err :err.errors[0].message})
     })
+    
 }

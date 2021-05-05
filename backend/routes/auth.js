@@ -1,5 +1,4 @@
-var express = require('express');
-var router = express.Router();
+const router = require('express').Router();
 
 const signupCtrl = require('../guard/signup')
 const findUserCtrl = require('../guard/login')

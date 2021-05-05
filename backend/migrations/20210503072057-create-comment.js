@@ -11,14 +11,15 @@ module.exports = {
       content: {
         type: Sequelize.STRING
       },
-      idUSer: {
+      PostId: {
         type: Sequelize.INTEGER
       },
-      idPost: {
+      UserId: {
         type: Sequelize.INTEGER
       },
-      idParent: {
-        type: Sequelize.INTEGER
+      CommentId: {
+        type: Sequelize.INTEGER,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,

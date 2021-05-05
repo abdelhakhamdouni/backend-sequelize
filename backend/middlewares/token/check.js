@@ -5,11 +5,6 @@ const SECRET = process.env.SECRET
 module.exports = (req, res, next) => {
     let token = req.headers.authorization.split(' ')[1]
     jwt.verify(token, SECRET, (err, result)=>{
-        if(err){
-            res.status(401).json({message: "Vous n'êtes pas authoriser a visiter cet url"})
-        }
-        else{
-            next()
-        }
+        res ?  next() : res.status(401).json({message: "Vous n'êtes pas authoriser a visiter cet url"})
     })
 }

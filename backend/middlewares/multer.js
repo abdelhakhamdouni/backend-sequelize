@@ -11,6 +11,8 @@ const MIME_TYPES = {
 const PATH_NAME = "uploads"
 
 var storage = multer.diskStorage({
+
+  
   destination: function (req, file, next) {
     if (file == undefined) {
       next();
@@ -18,6 +20,7 @@ var storage = multer.diskStorage({
     next(null, PATH_NAME);
   },
   filename: function (req, file, next) {
+    
     if (file == undefined) {
       next();
     }

@@ -13,13 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.Comment.belongsTo(models.Post)
       models.Comment.belongsTo(models.User)
+      models.Comment.belongsTo(models.Comment)
+      models.Comment.hasMany(models.Comment)
     }
   };
   Comment.init({
     content: DataTypes.STRING,
-    idUSer: DataTypes.INTEGER,
-    idPost: DataTypes.INTEGER,
-    idParent: DataTypes.INTEGER
+    UserId: DataTypes.INTEGER,
+    PostId: DataTypes.INTEGER,
+    CommentId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Comment',
